@@ -25,10 +25,10 @@ def checkStatus():
 def sayHealthy():
     app.logger.info('Inside /metrics endpoint')
     app.logger.debug('metrics request successfull again!')
-     app.logger.info('metrics request successfull')
+    app.logger.info('metrics request successfull')
     return "{UserCount: 140, UserCountActive: 23}"
     
     
 if __name__ == "__main__":
-    logging.basicConfig(filename='app.log', level=logging.DEBUG, format=f'%(asctime)s  %(message)s')//format: Defaults to attributes levelname, name and message separated by colons.
+    logging.basicConfig(filename='app.log', level=logging.DEBUG, format=f'%(asctime)s  %(message)s')
     app.run(host='0.0.0.0')
