@@ -75,21 +75,109 @@ Sudo -s. //to enter as sudo user
 Echo $USER
 Echo $HOME/.kube
 sudo chown -R $USER $HOME/.kube //assign  <> as new owner of <>
-cat /etc/rancher/k3s/k3s.yaml
+`cat /etc/rancher/k3s/k3s.yaml`
 
 Docker image ls
-Vagrant ssh
+`vagrant up`, then `vagrant ssh`
 curl -sfL https://get.k3s.io | sh -
-kubectl create deploy go-helloworld --image=treefishdocker/go-helloworld:v1.0.0
-zypper install -t pattern apparmor//after ssh into vagrant
+`sudo su - ;`return; then `k3s kubectl get node`//check node
+1. kubectl create deploy go-helloworld --image=treefishdocker/go-helloworld:v1.0.0
+2. kubectl get rs, kubectl get deploy
+kubectl get po
+3. //how to check svc endpoint?: kubectl port-forward --address 0.0.0.0 po/go-helloworld-8689ff4dff-txs67 6111:6111
+or: pod-ip:port eg `curl 10.42.0.28:80`;
+4. or: kubectl expose deploy go-helloworld --port=8111 --target-port=6112
+then 4.1. kubectl run test-$RANDOM --namespace=demo --rm -it --image=alpine -- sh
+4.2: 
+4.3:  -qO 10.43.221.112:8111
 
-kubectl port-forward --address 0.0.0.0 po/go-helloworld-8689ff4dff-txs67 6111:6111
+5. for rolling update: kubectl edit deploy <deploy> -o yaml
+deploy rs pod
+6. or kubectl apply -f argocd-python.yaml
+-which list source code url and the path for the deployment.yml file
+install helm from curl script:in /usr/local/bin/helm
+then `helm create mychart`
+
+
+
+
 
 docker build -t go-helloworld .
 docker tag go-helloworld:latest treefishdocker/go-helloworld:v2.0.0
-kubectl edit deploy go-helloworld
+
+
+zypper install -t pattern apparmor//after ssh into vagrant
+
+
+
+
 
 192.168.50.4:6112//without changing the port at Vagrant, this still works 
 0.0.0.0:6112
 
+kubectl run test-$RANDOM --namespace=default --rm -it --image=alpine -- sh
+wimpty kubectl run test-$RANDOM --namespace=default --rm -it --image=alpine -- sh
+wget -qO- <service-cluster-ip>:port //command not found
 
+wget -qO- 10.43.221.112:8111
+wget: can't connect to remote host (10.43.221.112): Connection refused
+//svc describe list Endpoints of pod-ip:port; so use those. 
+
+
+kubectl expose deploy go-helloworld --port=6112 --target-port=6112
+echo "cmVk" | base64 -D
+kubectl apply should only be used on resources created declaratively by either kubectl create --save-config or kubectl apply. The missing annotation will be patche
+
+
+kubectl get all -n custom-metrics //or looping through all api-resources in this namespace shows no resources exist at all: 
+kubectl api-resources  --namespaced=true -o name | xargs -n 1 kubectl get -n custom-metrics
+
+kubectl get all -n demo
+https://github.com/marketplace/actions/build-and-push-docker-images
+nodePort -> port? -> targetPort: per https://stackoverflow.com/questions/41963433/what-does-it-mean-for-a-service-to-be-of-type-nodeport-and-have-both-port-and-t
+
+
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+kubectl get all -n argocd
+kubectl get service/argocd-server -n argocd -o yaml 
+kubectl apply -f argocd-server-nodeport-derived.yaml -n argocd
+ kubectl get svc -n argocd
+
+ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+
+ kubectl apply -f argocd-alpine.yaml -n argocd
+
+ kubectl cluster-info
+kubectl get node
+kubectl get all --all-namespaces
+
+//how to get current namespace?
+kubectl config current-context
+echo NS=$(kubectl get sa -o=jsonpath='{.items[0]..metadata.namespace}')
+kubectl config view --minify
+kubectl config view --minify --output 'jsonpath={..namespace}'; echo
+//where is kube_config_cluster.yml in rancher RKE
+
+~/.kube/config' but with k3s it is at /etc/rancher/k3s/k3s.yml
+kubectl get nodes -w
+kubectl describe node localhost //has Non-terminated Pods:(with namespace and name of pods)
+or kubectl get sa  then kubectl describe sa <sa>
+
+
+define //containers //env with valueFrom: //configMapKeyRef://name: & //key 
+
+
+after kubectl apply -f nginx-alpine-server-nodeport.yaml -n demo
+ curl 10.43.248.85:30009 //did not work inside localhost node
+ 
+ curl  10.42.0.36:8111 //curl: (7) Failed to connect to 10.42.//.36 port 8111: Connection refused
+localhost:~ # curl  10.42.0.36:80//works
+
+https://192.168.50.4:80//404
+https://argoproj.github.io/argo-cd/getting_started/ Chrome: https://192.168.50.4:30007/applications for argocd dashboard
+error at argocd: 
+rpc error: code = Unknown desc = Manifest generation error (cached): nginx-deployment: app path does not 
+
+revive pod: delete it if in cluster: kubectl delete po <pod>  
