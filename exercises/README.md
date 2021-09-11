@@ -71,14 +71,14 @@ Kubectl cluster-info
 Kubectl get nodes -o wide //get internal IP etc
 Kubectl describe node <node> | grep CIDR
 
-Sudo -s. //to enter as sudo user
+`sudo -s.`//to enter as sudo user
 Echo $USER
 Echo $HOME/.kube
 sudo chown -R $USER $HOME/.kube //assign  <> as new owner of <>
 `cat /etc/rancher/k3s/k3s.yaml`
-
+`kubectl cluster-info` //https://127.0.0.1:6443
 Docker image ls
-`vagrant up`, then `vagrant ssh`
+`vagrant up`, then `vagrant ssh` (`vagrant reload` if changing Vagrantfile)
 curl -sfL https://get.k3s.io | sh -
 `sudo su - ;`return; then `k3s kubectl get node`//check node
 1. kubectl create deploy go-helloworld --image=treefishdocker/go-helloworld:v1.0.0
@@ -181,3 +181,51 @@ error at argocd:
 rpc error: code = Unknown desc = Manifest generation error (cached): nginx-deployment: app path does not 
 
 revive pod: delete it if in cluster: kubectl delete po <pod>  
+`kubectl describe node localhost | grep Taint`
+`kubectl taint node node01 spray=mortein:NoSchedule`
+`kubectl taint node controlplane node-role.kubernetes.io/master:NoSchedule-`
+kubectl get po mosquito -o wide
+kubectl exec ubuntu-sleeper -- whoami
+kubectl get pod/ubuntu-sleeper -o yaml > sleeper.yaml
+kubectl create -f docker-registry.yaml --edit -o json
+kubectl exec -it <pod_name> -- /bin/bash</pod_name> //`kubectl exec -it ubuntu-sleeper -- /bin/bash`
+--cap-add=
+kubectl exec -it security-context-demo -- sh
+kubectl -n elastic-stack exec -it app -- cat /log/app.log // or `kubectl -n elastic-stack logs app`
+ kk label node node01 color=blue
+kk explain pod.spec.nodeSelector
+kk explain pod.spec | grep -i nodeselector
+kk api-resources | grep -i persistentvolumeclaim
+
+kk describe pod <pod-name> | grep -i events -A 10
+kk describe node controlplane | grep -i Taints -A 10
+kk run cj1 --image=nginx --restart=OnFailure --schedule="*/1 * * * * " \
+--dry-run -o yaml > cj1.yaml
+
+kk annotate --help | head -30 //per https://github.com/lucassha/CKAD-resources/blob/master/tipsAndtricks.md
+kk create deploy blue --image=nginx --replicas=3 --dry-run=client -o yaml > blue.yaml
+
+deployment.spec.template.spec.affinity:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: color
+                operator: In
+                values: ["blue"]
+                                        
+    affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: "node-role.kubernetes.io/master"
+
+                operator: "Exists"
+
+kubectl -n elastic-stack logs kibana
+
+useradd <user>
+useradd -K MAIL_DIR=/dev/null nomailuser
+passwd <user>
