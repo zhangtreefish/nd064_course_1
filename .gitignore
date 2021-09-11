@@ -1,3 +1,4 @@
 .vscode/
 app.log
 exercises/.vagrant/
+project/techtrends/database.db
