@@ -4,7 +4,26 @@ from flask import Flask, jsonify, json, render_template, request, url_for, redir
 #from werkzeug.exceptions import abort
 import logging
 import sys
- 
+# configure logging to override the default beginning level of warning in Python
+#https://flask.palletsprojects.com/en/2.0.x/logging/
+from logging.config import dictConfig
+
+dictConfig({
+    'version': 1,
+    'formatters': {'default': {
+        'format': '[%(asctime)s] %(levelname)s in %(module)s: %(message)s',
+    }},
+    'handlers': {'wsgi': {
+        'class': 'logging.StreamHandler',
+        'stream': 'ext://flask.logging.wsgi_errors_stream',
+        'formatter': 'default'
+    }},
+    'root': {
+        'level': 'INFO',
+        'handlers': ['wsgi']
+    }
+})
+
 # initialise counts:
 db_connection_count = 0
 
@@ -108,5 +127,4 @@ def showMetrics():
 
 # start the application on port 3111
 if __name__ == "__main__":
-   logging.basicConfig(filename='app.log', level=logging.DEBUG, format=f'%(asctime)s  %(message)s')
    app.run(host='0.0.0.0', port='3111')

@@ -1,6 +1,6 @@
 python3 --version
-
-http://0.0.0.0:5000/ 
+docker rm <container> then docker rmi <image>
+http://0.0.0.0:5000/ //Flask default port is 5000! 
 Mommys-iMac:exercises mommy$ pip3 install -r requirements.txt
 Python3 app.py
 No hot loading: CtrlC and then start again when editing
@@ -11,8 +11,8 @@ http://0.0.0.0:5000/metrics
 
 SUSE
 python3 --version
-
-http://0.0.0.0:5000/ 
+$ docker run -dp 80:5000 mypyworld
+docker 
 Mommys-iMac:exercises mommy$ pip3 install -r requirements.txt
 Python3 app.py
 No hot loading: CtrlC and then start again when editing
@@ -71,7 +71,7 @@ Kubectl cluster-info
 Kubectl get nodes -o wide //get internal IP etc
 Kubectl describe node <node> | grep CIDR
 
-`sudo -s.`//to enter as sudo user
+`sudo -s.`//to enter as sudo user-does not work anymore; ?
 Echo $USER
 Echo $HOME/.kube
 sudo chown -R $USER $HOME/.kube //assign  <> as new owner of <>
@@ -228,4 +228,12 @@ kubectl -n elastic-stack logs kibana
 
 useradd <user>
 useradd -K MAIL_DIR=/dev/null nomailuser
-passwd <user>
+passwd <user> //enter pwd twice
+sudo vipw
+su <user> //switch user to <>, enter pwd ;
+visudo //to edit /etc/sudoers
+
+cat /sys/block/sda/sda1/start //to view boundary of a partitionl
+
+ docker container prune [OPTIONS]//remove stopped containers
+ 
