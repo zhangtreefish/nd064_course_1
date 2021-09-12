@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
-
-FROM python:2.7
+# use 3.8 instead of deprecated 2.7
+FROM python:3.8
 
 WORKDIR /app
 
