@@ -1,11 +1,9 @@
 import sqlite3
 
 from flask import Flask, jsonify, json, render_template, request, url_for, redirect, flash
-from werkzeug.exceptions import abort
+#from werkzeug.exceptions import abort
 import logging
 import sys
-
-stdout_fileno = sys.stdout
  
 # initialise counts:
 db_connection_count = 0
@@ -74,9 +72,9 @@ def create():
             c=connection.cursor()
             c.execute('INSERT INTO posts (title, content) VALUES (?, ?)',
                          (title, content))
+            connection.commit()
             app.logger.info("article added; id: %d , title: %s" %(c.lastrowid, title))
             sys.stdout.write("article added; id: %d , title: %s" %(c.lastrowid, title))
-            connection.commit()
             c.close()
             return redirect(url_for('index'))
 
