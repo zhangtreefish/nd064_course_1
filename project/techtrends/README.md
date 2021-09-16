@@ -27,3 +27,4 @@ conda env remove --name shiny_new_env
 
   then run `pip freeze > requirements.txt`//see certifi==2020.6.20 for 2.7
   https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions
+  https://code.visualstudio.com/docs/python/linting
