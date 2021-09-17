@@ -104,10 +104,10 @@ def create():
             cursor.execute('INSERT INTO posts (title, content) VALUES (?, ?)',
                            (title, content))
             connection.commit()
-            app.logger.info("article added; id: %d , title: %s" %
-                            (cursor.lastrowid, title))
-            sys.stdout.write("article added; id: %d , title: %s" %
-                             (cursor.lastrowid, title))
+            app.logger.info(
+                f"article added; id: {cursor.lastrowid} , title: {title}")
+            sys.stdout.write(
+                f"article added; id: {cursor.lastrowid} , title: {title}")
             cursor.close()
             return redirect(url_for('index'))
 
