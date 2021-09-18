@@ -1,6 +1,7 @@
 # pylint: disable=missing-module-docstring
 # pylint: disable=E1101
 # pylint: disable=W0603
+# pylint: disable=E0401
 import sqlite3
 import sys
 from logging.config import dictConfig
@@ -130,10 +131,10 @@ def check_health():
 @app.route("/metrics")
 def show_metrics():
     """Provide metrics endpoint as best practice"""
+    # global DB_CONNECTION_COUNT
     connection = get_db_connection()
     posts = connection.execute('SELECT * FROM posts').fetchall()
     connection.close()
-    global DB_CONNECTION_COUNT
     response = app.response_class(
         response=json.dumps(
             {"DB_CONNECTION_COUNT": DB_CONNECTION_COUNT, "post_count": len(posts)}),

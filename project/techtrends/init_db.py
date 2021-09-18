@@ -1,8 +1,11 @@
+# pylint: disable=missing-module-docstring
+# pylint: disable=C0301
+# pylint: disable=C0114
 import sqlite3
 
 connection = sqlite3.connect('database.db')
 
-with open('schema.sql') as f:
+with open('schema.sql', 'r', encoding='utf8') as f:
     connection.executescript(f.read())
 
 cur = connection.cursor()
