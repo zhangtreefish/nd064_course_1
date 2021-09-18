@@ -30,4 +30,5 @@ https://code.visualstudio.com/docs/python/linting
 (conda install -c anaconda pep8//conda uninstall -c anaconda pep8
 pep8 -h)
 autopep8 --in-place --aggressive --aggressive init_db.py
-python interpreter: https://code.visualstudio.com/docs/python/environments : /Library/Frameworks/Python.framework/Versions/3.9/bin/python3
+python interpreter: https://code.visualstudio.com/docs/python/environments : /Library/Frameworks/Python.framework/Versions/3.9/bin/python3 /usr/bin/python3
+Flask : https://flask.palletsprojects.com/en/2.0.x/installation/

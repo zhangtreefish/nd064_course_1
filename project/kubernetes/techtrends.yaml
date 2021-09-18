@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"kind":"Deployment","apiVersion":"apps/v1","metadata":{"name":"techtrends","namespace":"sandbox","creationTimestamp":null,"labels":{"app":"techtrends"}},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"techtrends"}},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"techtrends"}},"spec":{"containers":[{"name":"techtrends","image":"treefishdocker/techtrends:latest","ports":[{"containerPort":3111}],"resources":{}}]}},"strategy":{}},"status":{}}
+  creationTimestamp: null
+  labels:
+    app: techtrends
+  name: techtrends
+  namespace: sandbox
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: techtrends
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: techtrends
+    spec:
+      containers:
+      - image: treefishdocker/techtrends:latest
+        name: techtrends
+        ports:
+        - containerPort: 3111
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "64Mi"
+          limits:
+            cpu: "500m"
+            memory: "128Mi"
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 3111
+          initialDelaySeconds: 15
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 3111
+          initialDelaySeconds: 5
+          periodSeconds: 5
+status: {}
