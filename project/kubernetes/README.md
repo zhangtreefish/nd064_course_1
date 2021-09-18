@@ -13,3 +13,5 @@ kubectl expose deployment/techtrends --type=ClusterIP --port=4111 -n sandbox
 kubectl get svc -n sandbox -o yaml > techtrends-svc.yaml
 vi techtrends-svc.yaml
 ```
+
+Failed to pull image "techtrends:latest": rpc error: code = Unknown desc = failed to pull and unpack image "docker.io/library/techtrends:latest": failed to resolve reference "docker.io/library/techtrends:latest": pull access denied, repository does not exist or may require authorization: server message: insufficient_scope: authorization failed

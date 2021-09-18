@@ -32,3 +32,6 @@ pep8 -h)
 autopep8 --in-place --aggressive --aggressive init_db.py
 python interpreter: https://code.visualstudio.com/docs/python/environments : /Library/Frameworks/Python.framework/Versions/3.9/bin/python3 /usr/bin/python3
 Flask : https://flask.palletsprojects.com/en/2.0.x/installation/
+
+curl -sfL https://get.k3s.io | sh -
+sudo zypper --non-interactive install apparmor-parser

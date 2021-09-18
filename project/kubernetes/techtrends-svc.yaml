@@ -8,12 +8,6 @@ items:
     name: techtrends
     namespace: sandbox
   spec:
-    clusterIP: 10.43.233.92
-    clusterIPs:
-    - 10.43.233.92
-    ipFamilies:
-    - IPv4
-    ipFamilyPolicy: SingleStack
     ports:
     - port: 4111
       protocol: TCP
