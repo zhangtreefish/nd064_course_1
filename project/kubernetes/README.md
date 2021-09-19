@@ -5,7 +5,7 @@ Place the Kubernetes declarative manifests in this directory.
 kubectl create ns sandbox --save-config --dry-run=client -o yaml > sandbox.yaml
 kubectl apply -f sandbox.yaml
 
-kubectl create deploy techtrends --image=techtrends:latest --port=3111 --save-config --dry-run=client -o yaml -n sandbox > techtrends.yaml
+kubectl create deploy techtrends --image=treefishdocker/techtrends:latest --port=3111 --save-config --dry-run=client -o yaml -n sandbox > techtrends.yaml
 vi techtrends.yaml
 kubectl apply -f techtrends.yaml
 
