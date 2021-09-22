@@ -119,14 +119,24 @@ def create():
 def check_health():
     """Provide Healthcheck endpoint as best practice"""
     app.logger.info('Inside /healthz endpoint')
-    response = app.response_class(
-        response=json.dumps({"result": " OK - healthy"}),
-        status=200,
-        mimetype='application/json'
-    )
-    app.logger.info('Status request successfull')
+    try: 
+        connection = get_db_connection()
+        posts = connection.execute('SELECT * FROM posts').fetchall()
+        connection.close()
+        response = app.response_class(
+            response=json.dumps({"result": " OK - healthy"}),
+            status=200,
+            mimetype='application/json'
+        )
+        app.logger.info('Status request successfull')
+    except sqlite3.Error as e:
+        response = app.response_class(
+            response=json.dumps({"result": " error connect "}),
+            status=500,
+            mimetype='application/json'
+        )
+    connection.close()
     return response
-
 
 @app.route("/metrics")
 def show_metrics():
