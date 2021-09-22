@@ -20,7 +20,7 @@ dictConfig({
         'formatter': 'default'
     }},
     'root': {
-        'level': 'INFO',
+        'level': 'DEBUG',
         'handlers': ['wsgi']
     },
     'DB_CONNECTION_COUNT': 0
@@ -119,9 +119,9 @@ def create():
 def check_health():
     """Provide Healthcheck endpoint as best practice"""
     app.logger.info('Inside /healthz endpoint')
-    try: 
+    try:
         connection = get_db_connection()
-        posts = connection.execute('SELECT * FROM posts').fetchall()
+        connection.execute('SELECT * FROM posts').fetchall()
         connection.close()
         response = app.response_class(
             response=json.dumps({"result": " OK - healthy"}),
@@ -129,7 +129,7 @@ def check_health():
             mimetype='application/json'
         )
         app.logger.info('Status request successfull')
-    except sqlite3.Error as e:
+    except sqlite3.Error:
         response = app.response_class(
             response=json.dumps({"result": " error connect "}),
             status=500,

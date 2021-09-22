@@ -6,10 +6,23 @@ pwd
 ls
 docker build -t techtrends .
 docker images
+```
+
+## Docker commands used to run the application
+# TODO: insert the docker run command
+```
 docker run -d -p 7111:3111 --name techtrendspod techtrends
 docker ps
+```
+
+## Docker commands used to get the application logs
+# TODO: insert the docker logs command
+```
 docker logs techtrendspod
 ```
+
+## Logs from the container running the TechTrends application
+# TODO: paste logs from the Docker container 
 ```
 Mommys-iMac:project mommy$ docker logs techtrendspod
  * Serving Flask app "app" (lazy loading)
@@ -36,15 +49,3 @@ Mommys-iMac:project mommy$ docker logs techtrendspod
 [2021-09-12 19:56:10,052] INFO in _internal: 172.17.0.1 - - [12/Sep/2021 19:56:10] "GET / HTTP/1.1" 200 -
 Mommys-iMac:project mommy$ 
 ```
-
-
-
-
-## Docker commands used to run the application
-# TODO: insert the docker run command
-
-## Docker commands used to get the application logs
-# TODO: insert the docker logs command
-
-## Logs from the container running the TechTrends application
-# TODO: paste logs from the Docker container 
